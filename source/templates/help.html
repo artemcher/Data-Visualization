@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Diabetes Data</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="/">Data Visualizer</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/help">Help</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Diabetes Data Visualizer</h1>
+                <p class="lead">View documentation of used Python moduels.</p>
+                
+                <form action="/show_documentation" method="get">
+                    <div class="dropdown mt-4 col-md-12" id="moduleSelect">
+                        <span> Choose module: </span>
+                        <select name="module">
+                            <option value="data">Data reading module (data.py)</option>
+                            <option value="fitting">Data fitting module (fitting.py) </option>
+                            <option value="visualize">Data visualizing module (visualize.py)</option>
+                        </select>
+                    </div>
+
+                    <input type="submit" class="btn btn-secondary mt-4" value="Show Documentation">
+                </form>
+            </div>
+
+            <div class="container">
+                {% if module_doc != None %}
+                <div class="mt-4 col-md-12">
+                    {{ module_doc|safe }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </body>
+</html>

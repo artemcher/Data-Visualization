@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Diabetes Data</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="/">Data Visualizer</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/help">Help</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Diabetes Data Visualizer</h1>
+                <p class="lead">View diabetes data and analysis.</p>
+
+                <div id="accordion">
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseDataSelect" aria-expanded="false" aria-controls="collapseDataSelect">
+                      Visualize Data
+                    </button>
+
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseAnalysisSelect" aria-expanded="false" aria-controls="collapseAnalysisSelect">
+                      Visualize Analysis
+                    </button>
+                
+
+                    <div class="collapse" id="collapseDataSelect" data-parent="#accordion">
+                        <form action="/show_data" method="get">
+                            <div class="dropdown mt-4 col-md-12" id="dataFeature1">
+                                <span> Feature 1: </span>
+                                <select name="df1">
+                                    <option value="0">Times pregnant</option>
+                                    <option value="1">Glucose in plasma</option>
+                                    <option value="2">Pressure (mm Hg)</option>
+                                    <option value="3">Triceps skin thickness (mm)</option>
+                                    <option value="4">Insulin (μU/ml)</option>
+                                    <option value="5">Body Mass Index (kg/m^2)</option>
+                                    <option value="6">Diabetes Pedigree Function</option>
+                                    <option value="7">Age (years)</option>
+                                </select>
+                            </div>
+
+                            <div class="dropdown mt-4 col-md-12" id="dataFeature2">
+                                <span> Feature 2: </span>
+                                <select name="df2">
+                                    <option value="0">Times pregnant</option>
+                                    <option value="1">Glucose in plasma</option>
+                                    <option value="2">Pressure (mm Hg)</option>
+                                    <option value="3">Triceps skin thickness (mm)</option>
+                                    <option value="4">Insulin (μU/ml)</option>
+                                    <option value="5">Body Mass Index (kg/m^2)</option>
+                                    <option value="6">Diabetes Pedigree Function</option>
+                                    <option value="7">Age (years)</option>
+                                </select>
+                            </div>
+
+                            <input type="submit" class="btn btn-secondary mt-4" value="Show Data">
+                        </form>
+                    </div>
+
+
+                    <div class="collapse" id="collapseAnalysisSelect" data-parent="#accordion">
+                        <form action="/show_analysis" method="get" >
+                            <div class="dropdown mt-4 col-md-12" id="analysisFeature1">
+                                <span> Feature 1: </span>
+                                <select name="af1">
+                                    <option value="0">Times pregnant</option>
+                                    <option value="1">Glucose in plasma</option>
+                                    <option value="2">Pressure (mm Hg)</option>
+                                    <option value="3">Triceps skin thickness (mm)</option>
+                                    <option value="4">Insulin (μU/ml)</option>
+                                    <option value="5">Body Mass Index (kg/m^2)</option>
+                                    <option value="6">Diabetes Pedigree Function</option>
+                                    <option value="7">Age (years)</option>
+                                </select>
+                            </div>
+
+                            <div class="dropdown mt-4 col-md-12" id="analysisFeature2">
+                                <span> Feature 2: </span>
+                                <select name="af2">
+                                    <option value="0">Times pregnant</option>
+                                    <option value="1">Glucose in plasma</option>
+                                    <option value="2">Pressure (mm Hg)</option>
+                                    <option value="3">Triceps skin thickness (mm)</option>
+                                    <option value="4">Insulin (μU/ml)</option>
+                                    <option value="5">Body Mass Index (kg/m^2)</option>
+                                    <option value="6">Diabetes Pedigree Function</option>
+                                    <option value="7">Age (years)</option>
+                                </select>
+                            </div>
+
+                            <div class="dropdown mt-4 col-md-12" id="classificationMethod">
+                                <span> Classification method: </span>
+                                <select name="amethod">
+                                    <option value="logreg">Logistic Regression</option>
+                                    <option value="tree">Decision Tree</option>
+                                    <option value="forest">Random Forest</option>
+                                </select>
+                            </div>
+
+                            <input type="submit" class="btn btn-secondary mt-4" value="Show Analysis">
+                        </form>
+                    </div>
+                </div>
+
+            <div class="container">
+                {% if train_acc != None %}
+                <div class="mt-4 col-md-12">
+                    <p> {{ train_acc }} <br> {{ val_acc}} </p>
+                </div>
+                {% endif %}
+
+
+                {% if data_plot != None %}
+                <div class="mt-2 col-md-12">
+                    <img src="data:image/png;base64,{{ data_plot }}">
+                </div>
+                {% endif %}
+
+                {% if class_plot != None %}
+                <div class="mt-2 col-md-12">
+                    <img src="data:image/png;base64,{{ class_plot }}">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </body>
+</html>
