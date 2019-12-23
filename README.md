@@ -1,4 +1,4 @@
-#Diabetes data with web app visualization (Python/Flask)
+# Diabetes data with web app visualization (Python/Flask)
 
 `python3 data.py`
 Plot two features against diabetes occurence.
